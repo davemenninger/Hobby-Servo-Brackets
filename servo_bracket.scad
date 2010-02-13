@@ -33,7 +33,7 @@ module pinhole( x, y, z ){
 	difference(){
 		cube( size=[ B+C+10, thickness, A+thickness ] );
 		translate( [ ((B+C+10)-(E+F))/2, -1, 0] ){
-			cube( size=[ E+F, thickness+2, A ] );
+			cube( size=[ E+F, thickness+2, A+5 ] );
 		}
 
 		translate( [ 0, thickness+1, 0] ){
@@ -42,6 +42,43 @@ module pinhole( x, y, z ){
 			pinhole( 5, 0, ((A-D)/2)+D );
 			pinhole( B+C+5, 0, (A-D)/2 );
 			pinhole( B+C+5, 0, ((A-D)/2)+D );
+		}
+	}
+
+	//supports
+	difference(){
+		union(){
+			translate( [ 0, -3, 5 ] ){
+				rotate( -45, [1,0,0] ){
+					cube( size=[ thickness/2 , H/1.5, A/2 ] );
+				}
+			}
+			translate( [ (B+C+10)-(thickness/2), -3, 5 ] ){
+				rotate( -45, [1,0,0] ){
+					cube( size=[ thickness/2 , H/1.5, A/2 ] );
+				}
+			}
+			translate( [ 0, H-1, -7 ] ){
+				rotate( 45, [1,0,0] ){
+					cube( size=[ thickness/2 , H/1.5, A/2 ] );
+				}
+			}
+			translate( [ (B+C+10)-(thickness/2), H-1, -7 ] ){
+				rotate( 45, [1,0,0] ){
+					cube( size=[ thickness/2 , H/1.5, A/2 ] );
+				}
+			}
+		}
+		union(){
+			translate( [ 0, 0, -thickness*2 ] ){
+				cube( size=[ B+C+10, H+(thickness*2), thickness ] );
+			}
+			translate( [ 0, -thickness, 0 ] ){
+				cube( size=[ B+C+10, thickness, A+thickness ] );
+			}
+			translate( [ 0, H+thickness*2, 0 ] ){
+				cube( size=[ B+C+10, thickness, A+thickness ] );
+			}
 		}
 	}
 
@@ -56,8 +93,8 @@ module pinhole( x, y, z ){
 		}
 
 		//pivot holes behind servo
-		pinhole( B, H+(thickness*2)+1, A/2 );
-		pinhole( (B+C+10)-B, H+(thickness*2)+1, A/2 );
+		pinhole( B+5, H+(thickness*2)+1, A/2 );
+		pinhole( (B+C+10)-(B+5), H+(thickness*2)+1, A/2 );
 	}
 
 	//base
