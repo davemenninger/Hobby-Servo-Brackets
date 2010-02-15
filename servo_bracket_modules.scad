@@ -104,14 +104,24 @@ module servo_bracket()
 		}
 
 		//pivot holes behind servo
-		pivothole( B+5, H+(thickness*2)+1, A/2 );
-		pivothole( (B+C+10)-(B+5), H+(thickness*2)+1, A/2 );
+		mountpoint( B+5, H+(thickness*2)+1, A/2 );
+		mountpoint( (B+C+10)-(B+5), H+(thickness*2)+1, A/2 );
 	}
 
 	//base
 	//======
-	translate( [ 0, 0, -thickness ] ){
-		cube( size=[ B+C+10, H+(thickness*2), thickness ] );
+	difference(){
+		union(){
+			translate( [ 0, 0, -thickness ] ){
+				cube( size=[ B+C+10, H+(thickness*2), thickness ] );
+			}
+		}
+		union(){
+			rotate( 90, [1,0,0]){
+				mountpoint( B+5, 1, -(H/2)-thickness );
+				mountpoint( (B+C+10)-(B+5), 1, -(H/2)-thickness );
+			}
+		}
 	}
 }
 
