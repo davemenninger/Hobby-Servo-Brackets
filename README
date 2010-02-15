@@ -2,6 +2,8 @@ This is a collection of design files for mounting brackets for hobby servo motor
 
 The brackets were modeled in and the STL files were generated using OpenSCAD.  http://openscad.org
 
+The servo_bracket_modules.scad file contains re-usable code.
+
 The goal is to make parts that can be printed on a MakerBot or other RepRaps.  http://makerbot.com
 
 For an idea of what I'm going for see: http://www.trossenrobotics.com/c/hobby-servos-for-robotics.aspx
