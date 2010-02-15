@@ -41,6 +41,7 @@ module mountpoint( x, y, z ){
 		pinhole( x, y, z+(B/2) );
 }
 
+rotate( 90, [0,1,0]){
 	//zero ball
 	//sphere(r=1);
 
@@ -88,6 +89,7 @@ module mountpoint( x, y, z ){
 			mountpoint( B, 1, -(H+G+(thickness*2))/2 );
 		}
 	}
+}
 }
 
 servo_bracket_C();
