@@ -1,17 +1,17 @@
 
 <servo_bracket_modules.scad>
 
-
-module servo_bracket_foot()
-{
-
 module toe(){
+
 	cylinder( h=thickness, r=15 );
 	translate( [ -5, 0, 0 ] ){
 		cube( size=[ 10, 30, thickness ] );
 	}
+
 }
-					
+
+module servo_bracket_foot(){
+
 	difference(){
 		union(){
 			//standard bracket
@@ -40,6 +40,7 @@ module toe(){
 
 		}
 	}
+
 }
 
 servo_bracket_foot();
