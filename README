@@ -1,6 +1,6 @@
 This is a collection of design files for mounting brackets for hobby servo motors.
 
-The brackets were modeled in and the STL files were generated using OpenSCAD.  http://openscad.org
+The brackets were modeled using OpenSCAD, and it can be used to create STL files of the brackets.  http://openscad.org
 
 The servo_bracket_modules.scad file contains re-usable code.
 
