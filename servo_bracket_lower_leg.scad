@@ -10,7 +10,7 @@ module servo_bracket_lower_leg_right(){
 			servo_bracket();
 
 			//C bracket connects to ankle below
-			translate( [ B+C+10, -thickness*1.5, A+thickness ] ){
+			translate( [ B+C+10, (-H/2)+thickness, A+thickness ] ){
 				rotate( 90, [0,1,0] ){
 					servo_bracket_C();
 				}
@@ -28,7 +28,7 @@ module servo_bracket_lower_leg_left(){
 			servo_bracket();
 
 			//C bracket connects to ankle below
-			translate( [ 0, -thickness*1.5, -thickness ] ){
+			translate( [ 0, (-H/2)+thickness, -thickness ] ){
 				rotate( -90, [0,1,0] ){
 					servo_bracket_C();
 				}

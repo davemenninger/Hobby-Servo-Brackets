@@ -136,7 +136,8 @@ module servo_bracket_C()
 {
 
 //length of the bracket
-bracket_length = H+G+X+(thickness*2)+thickness;
+fudge=5;
+bracket_length = H+G+X+(thickness*2)+fudge;
 
 //heigh of the bracket
 bracket_height = A*1.5;
@@ -187,11 +188,14 @@ bracket_height = A*1.5;
 }
 
 
+module mockup(){
+	servo_bracket();
 
-//servo_bracket();
+	translate( [ -B*0.8, -thickness*3.9, B*1.75 ] ){
+		rotate( 90, [0,1,0] ){
+			servo_bracket_C();
+		}
+	}
+}
 
-//translate( [ -B+5, -thickness*3.5, B*2 ] ){
-//	rotate( 90, [0,1,0] ){
-//		servo_bracket_C();
-//	}
-//}
+//mockup();
