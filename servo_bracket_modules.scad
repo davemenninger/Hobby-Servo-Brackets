@@ -9,6 +9,11 @@ G = 11.68;
 H = 26.67;
 J = 52.84;
 
+//guesses
+K=5.8;
+M=40;
+X=3.5;
+
 //thickness of the bracket parts
 thickness = 4;
 
@@ -33,10 +38,11 @@ module mountpoint( x, y, z ){
 		pivothole( x, y, z );
 
 		//four mount holes
-		pinhole( x+(B/2), y, z );
-		pinhole( x-(B/2), y, z );
-		pinhole( x, y, z-(B/2) );
-		pinhole( x, y, z+(B/2) );
+		pinhole_distance = 7.5;
+		pinhole( x+pinhole_distance, y, z );
+		pinhole( x-pinhole_distance, y, z );
+		pinhole( x, y, z+pinhole_distance );
+		pinhole( x, y, z-pinhole_distance );
 }
 
 module servo_bracket()
@@ -128,47 +134,54 @@ module servo_bracket()
 
 module servo_bracket_C()
 {
+
+//length of the bracket
+bracket_length = H+G+X+(thickness*2)+thickness;
+
+//heigh of the bracket
+bracket_height = A*1.5;
+
 	//front plate
 	//======
 	difference(){
 		union(){
-			translate( [ B, thickness, A*1.5 ] ){
+			translate( [ B, thickness, bracket_height ] ){
 				rotate( 90, [ 1, 0, 0 ] ){
 					cylinder( h=thickness, r=B );
 				}
 			}
-			cube( size=[ B*2, thickness, A*1.5 ] );
+			cube( size=[ B*2, thickness, bracket_height ] );
 		}
 
-		mountpoint( B, thickness+1, A*1.5 );
+		mountpoint( B, thickness+1, bracket_height );
 	}
 
 	//back plate
 	//======
 	difference(){
 		union(){
-			translate( [ B, H+G+(thickness*2), A*1.5 ] ){
+			translate( [ B, bracket_length, bracket_height ] ){
 				rotate( 90, [ 1, 0, 0 ] ){
 					cylinder( h=thickness, r=B );
 				}
 			}
-			translate( [ 0, H+G+thickness, 0 ] ){
-				cube( size=[ B*2, thickness, A*1.5 ] );
+			translate( [ 0, bracket_length-thickness, 0 ] ){
+				cube( size=[ B*2, thickness, bracket_height ] );
 			}
 		}
 
 		//mount point behind servo
-		mountpoint( B, H+G+(thickness*2)+1, A*1.5 );
+		mountpoint( B, bracket_length+1, bracket_height );
 	}
 
 	//base
 	//======
 	difference(){
 		translate( [ 0, 0, -thickness ] ){
-			cube( size=[ B*2, H+G+(thickness*2), thickness ] );
+			cube( size=[ B*2, bracket_length, thickness ] );
 		}
 		rotate( 90, [ 1, 0, 0 ] ){
-			mountpoint( B, 1, -(H+G+(thickness*2))/2 );
+			mountpoint( B, 1, -bracket_length/2 );
 		}
 	}
 }
@@ -177,5 +190,8 @@ module servo_bracket_C()
 
 //servo_bracket();
 
-//servo_bracket_C();
-
+//translate( [ -B+5, -thickness*3.5, B*2 ] ){
+//	rotate( 90, [0,1,0] ){
+//		servo_bracket_C();
+//	}
+//}
