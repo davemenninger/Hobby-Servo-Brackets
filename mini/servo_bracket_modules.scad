@@ -176,7 +176,8 @@ bracket_length = H+G+X+(thickness*2)+(thickness*2)+fudge;
 bracket_height = A*1.5;
 
 //width of the bracket
-bracket_width = E*2;
+//bracket_width = B*2;  //thicker bracket
+bracket_width = E*2;  //thinner bracket
 
 	//front plate
 	//======
