@@ -1,5 +1,5 @@
 
-<servo_bracket_modules.scad>
+include <servo_bracket_modules.scad>
 
 
 module servo_bracket_upper_leg(){
@@ -14,7 +14,7 @@ module servo_bracket_upper_leg(){
 			}
 
 			//C bracket connects to hip
-			translate( [ thickness, 0, B*2 ] ){
+			translate( [ thickness, 0, B+thickness ] ){
 				rotate( 90, [0,1,0] ){
 					servo_bracket_C();
 				}
