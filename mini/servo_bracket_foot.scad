@@ -5,7 +5,7 @@ module toe(){
 
 	cylinder( h=thickness, r=10 );
 	translate( [ -2.5, 0, 0 ] ){
-		cube( size=[ 5, 20, thickness ] );
+		cube( size=[ 5, 30, thickness ] );
 	}
 
 }

@@ -137,7 +137,7 @@ servo_hole_length = E + F;
 		//make a hole in the top
 		translate( [ ( bracket_length - servo_hole_length )/2, bracket_depth + thickness, bracket_height - thickness] ){
 			rotate( 90, [1,0,0]){
-				cube( size=[ servo_hole_length, thickness*2, bracket_hiehgt + thickness ] );
+				cube( size=[ servo_hole_length, thickness*2, bracket_height + thickness ] );
 			}
 		}
 	}
