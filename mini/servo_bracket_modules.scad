@@ -1,4 +1,4 @@
-//standard hobby servo dimensions - don't change
+//standard hobby servo dimensions - measured by hand
 A = 19.82;
 B = 13.47;
 C = 33.79;
@@ -20,7 +20,7 @@ B = 8.5;
 C = 28.6 - B;
 D = 0;
 E = 6;
-F = 22.9 - E;
+F = 24 - E;
 G = 10.6;
 H = 15.6;
 J = 32.1;
@@ -29,7 +29,7 @@ M = 23.4;
 X = 3;
 
 //thickness of the bracket parts
-thickness = 3;
+thickness = 3.5;
 
 module pinhole( x, y, z ){
 	translate([x,y,z]){
@@ -64,85 +64,47 @@ module mountpoint( x, y, z ){
 
 module servo_bracket()
 {
+
+//cleaning up the messy variable names a little
+extra_length = 10;
+bracket_length = B + C + extra_length;
+
+bracket_depth = H;
+
+bracket_height = A;
+
+servo_hole_length = E + F;
+
 	//front plate
 	//======
 	difference(){
-		cube( size=[ B+C+10, thickness, A+thickness ] );
+		cube( size=[ bracket_length, thickness, bracket_height + thickness ] );
 
-		translate( [ ((B+C+10)-(E+F))/2, -1, 0] ){
-			cube( size=[ E+F, thickness*2, A+thickness ] );
+		//hole that the servo fits into
+		translate( [ ( bracket_length - servo_hole_length )/2, -thickness/2, 0 ] ){
+			cube( size=[ servo_hole_length, thickness*2,  bracket_height ] );
 		}
 
 		translate( [ 0, thickness+1, 0] ){
 			//two mounting holes
-			pivothole( B-5, 0, A/2 );
-			pivothole( (B+C)+5, 0, A/2 );
+			pivothole( 5.4, 0, bracket_height/2 );
+			pivothole( bracket_length-5.4, 0, bracket_height/2 );
 		}
 	}
 
-	//supports
-	//======
-	support_length = sqrt( (pow(A+thickness,2))+(pow((H/2),2)) );
-	support_width = sqrt( (pow(A,2))-(pow((support_length/2),2)) );
-
-	difference(){
-		union(){
-			rotate( 30, [1,0,0] ){
-				translate( [ 0, 1, -6 ] ){
-					cube( size=[ thickness*0.75 , support_width, support_length ] );
-				}
-			}
-			rotate( 30, [1,0,0] ){
-				translate( [ 5.5, 1, -6 ] ){
-					cube( size=[ thickness*0.75 , support_width, support_length ] );
-				}
-			}
-			rotate( 30, [1,0,0] ){
-				translate( [ (B+C+10)-thickness*0.75, 1, -6 ] ){
-					cube( size=[ thickness*0.75 , support_width, support_length ] );
-				}
-			}
-			rotate( 30, [1,0,0] ){
-				translate( [ (B+C+10)-thickness*0.75-5.5, 1, -6 ] ){
-					cube( size=[ thickness*0.75 , support_width, support_length ] );
-				}
-			}
-			rotate( -30, [1,0,0] ){
-				translate( [ 0, 9, 5 ] ){
-					cube( size=[ thickness*0.75 , support_width, support_length ] );
-				}
-			}
-			rotate( -30, [1,0,0] ){
-				translate( [  (B+C+10)-thickness*0.75, 9, 5 ] ){
-					cube( size=[ thickness*0.75 , support_width, support_length ] );
-				}
-			}
-		}
-
-		//big blocks to subtract off the corners sticking out
-		union(){
-			translate( [ 0, 0, -((thickness+2)*2+thickness) ] ){
-				cube( size=[ B+C+10, H+(thickness*2), (thickness+2)*2 ] );
-			}
-			translate( [ 0, -(thickness+2), -thickness ] ){
-				cube( size=[ B+C+10, thickness+2, A+thickness+thickness ] );
-			}
-			translate( [ 0, H+thickness*2, -thickness ] ){
-				cube( size=[ B+C+10, thickness+thickness, A+thickness+thickness ] );
-			}
-		}
-	}
 
 	//back plate
 	//======
 	difference(){
-		translate( [0, H+thickness, 0] ){
-			cube( size=[ B+C+10, thickness, A+thickness ] );
+		translate( [0, bracket_depth + thickness, 0] ){
+			cube( size=[ bracket_length, thickness, bracket_height + thickness ] );
 		}
 
 		//pivot holes behind servo
-		//mountpoint( B+5, H+(thickness*2)+1, A/2 );
-		//mountpoint( (B+C+10)-(B+5), H+(thickness*2)+1, A/2 );
+		translate( [ 0, 0, 0 ] ){
+			mountpoint( B+5, bracket_depth + thickness*3, bracket_height/2 );
+			mountpoint( (bracket_length)-(B+5), bracket_depth + thickness*3,  bracket_height/2 );
+		}
 	}
 
 	//base
@@ -150,17 +112,34 @@ module servo_bracket()
 	difference(){
 		union(){
 			translate( [ 0, 0, -thickness ] ){
-				cube( size=[ B+C+10, H+(thickness*2), thickness ] );
+				cube( size=[ bracket_length, bracket_depth + (thickness*2), thickness ] );
 			}
 		}
-		/*
-		union(){
+
+		//make a hole in the base
+		translate( [ ( bracket_length - servo_hole_length )/2, bracket_depth + thickness, -thickness*2] ){
 			rotate( 90, [1,0,0]){
-				mountpoint( B+5, 1, -(H/2)-thickness );
-				mountpoint( (B+C+10)-(B+5), 1, -(H/2)-thickness );
+				cube( size=[ servo_hole_length, thickness*2, bracket_height + thickness ] );
 			}
 		}
-		*/
+
+	}
+
+	//top
+	//======
+	difference(){
+		union(){
+			translate( [ 0, 0, bracket_height ] ){
+				cube( size=[ bracket_length, bracket_depth + (thickness*2), thickness ] );
+			}
+		}
+
+		//make a hole in the top
+		translate( [ ( bracket_length - servo_hole_length )/2, bracket_depth + thickness, bracket_height - thickness] ){
+			rotate( 90, [1,0,0]){
+				cube( size=[ servo_hole_length, thickness*2, bracket_hiehgt + thickness ] );
+			}
+		}
 	}
 }
 
@@ -224,6 +203,7 @@ bracket_width = E*2;  //thinner bracket
 		}
 		*/
 	}
+
 }
 
 
@@ -241,3 +221,4 @@ module mockup(){
 
 //mockup();
 
+//servo_bracket();
