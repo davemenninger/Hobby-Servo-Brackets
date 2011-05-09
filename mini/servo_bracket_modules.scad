@@ -148,7 +148,7 @@ module servo_bracket_C()
 {
 
 //length of the bracket (fudge takes into account extra room for horns, washers, etc)
-fudge=2;
+fudge=3;
 bracket_length = H+G+X+(thickness*2)+(thickness*2)+fudge;
 
 //heigh of the bracket
